@@ -79,7 +79,7 @@ const Movie = () => {
                             {
                                 company.logo_path
                                 &&
-                                <span className="productionCompanyImage" key={index}>
+                                <span  key={index} className="productionCompanyImage">
                                     <img className="movie__productionComapany" src={"https://image.tmdb.org/t/p/original" + company.logo_path} alt="" />
                                     <span>{company.name}</span>
                                 </span>
