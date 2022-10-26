@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 const Movie = () => {
     const [currentMovieDetail, setMovie] = useState()
@@ -21,7 +22,6 @@ const Movie = () => {
         }
     }
 
-    console.log(currentMovieDetail)
     return (
         <div className="movie">
             <div className="movie__intro">
@@ -38,7 +38,7 @@ const Movie = () => {
                         <div className="movie__name">{currentMovieDetail ? currentMovieDetail.original_title : ""}</div>
                         <div className="movie__tagline">{currentMovieDetail ? currentMovieDetail.tagline : ""}</div>
                         <div className="movie__rating">
-                            {currentMovieDetail ? currentMovieDetail.vote_average : ""} <i class="fas fa-star" />
+                            {currentMovieDetail ? currentMovieDetail.vote_average : ""} <i className="fas fa-star" />
                             <span className="movie__voteCount">{currentMovieDetail ? "(" + currentMovieDetail.vote_count + ") votes" : ""}</span>
                         </div>
                         <div className="movie__runtime">{currentMovieDetail ? currentMovieDetail.runtime + " mins" : ""}</div>
@@ -47,8 +47,8 @@ const Movie = () => {
                             {
                                 currentMovieDetail && currentMovieDetail.genres
                                     ?
-                                    currentMovieDetail.genres.map(genre => (
-                                        <><span className="movie__genre" id={genre.id}>{genre.name}</span></>
+                                    currentMovieDetail.genres.map((genre,index) => (
+                                        <><span key={index} className="movie__genre" id={genre.id}>{genre.name}</span></>
                                     ))
                                     :
                                     ""
@@ -65,21 +65,21 @@ const Movie = () => {
             <div className="movie__links">
                 <div className="movie__heading">Useful Links</div>
                 {
-                    currentMovieDetail && currentMovieDetail.homepage && <a href={currentMovieDetail.homepage} target="_blank" style={{ textDecoration: "none" }} rel="noreferrer" ><p><span className="movie__homeButton movie__Button">Homepage <i className="newTab fas fa-external-link-alt"></i></span></p></a>
+                    currentMovieDetail && currentMovieDetail.homepage && <Link href={currentMovieDetail.homepage} target="_blank" style={{ textDecoration: "none" }} rel="noreferrer" ><p><span className="movie__homeButton movie__Button">Homepage <i className="newTab fas fa-external-link-alt"></i></span></p></Link>
                 }
                 {
-                    currentMovieDetail && currentMovieDetail.imdb_id && <a href={"https://www.imdb.com/title/" + currentMovieDetail.imdb_id} target="_blank" style={{ textDecoration: "none" }} rel="noreferrer" ><p><span className="movie__imdbButton movie__Button">IMDb<i className="newTab fas fa-external-link-alt"></i></span></p></a>
+                    currentMovieDetail && currentMovieDetail.imdb_id && <Link href={"https://www.imdb.com/title/" + currentMovieDetail.imdb_id} target="_blank" style={{ textDecoration: "none" }} rel="noreferrer" ><p><span className="movie__imdbButton movie__Button">IMDb<i className="newTab fas fa-external-link-alt"></i></span></p></Link>
                 }
             </div>
             <div className="movie__heading">Production companies</div>
             <div className="movie__production">
                 {
-                    currentMovieDetail && currentMovieDetail.production_companies && currentMovieDetail.production_companies.map(company => (
+                    currentMovieDetail && currentMovieDetail.production_companies && currentMovieDetail.production_companies.map((company,index)=> (
                         <>
                             {
                                 company.logo_path
                                 &&
-                                <span className="productionCompanyImage">
+                                <span className="productionCompanyImage" key={index}>
                                     <img className="movie__productionComapany" src={"https://image.tmdb.org/t/p/original" + company.logo_path} alt="" />
                                     <span>{company.name}</span>
                                 </span>
